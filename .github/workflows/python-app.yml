@@ -1,0 +1,31 @@
+name: lambda app update
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+env:
+  ENVIRONMENT: "dev"
+  APP: "lambda-cli-python"
+
+jobs:
+  set-parameters:
+    name: set-parameters
+    runs-on: ubuntu-latest
+    outputs:
+      bucket_name_artifact: ${{ steps.app_parameters.outputs.bucket_name_artifact }}
+    steps:
+      - name: Set App parameters
+        id: app_parameters
+        run: |
+            echo "::set-output name=bucket_name_artifact::${ENVIRONMENT}-bucket2022-${APP}"
+
+
+  build-artifact:
+    name: build-artifact
+    runs-on: ubuntu-latest
+    steps:
+      - name: build-artifact
+        run: |
+          echo "this is the build artifact step"
