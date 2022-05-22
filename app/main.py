@@ -3,13 +3,14 @@ import os
 import json
 
 # enviroment variables
-URL = os.environ['URL']
+URL = "http://" + os.environ['URL']
 
-#function
+
+# function
 def lambda_handler(event, context):
     response = requests.get(URL)
     print(response)
     return {
                'statusCode': 200,
-               'body': json.dumps('Hello from Lambda!')
+               'body': json.dumps('Execution success!')
        }
